@@ -1,0 +1,11 @@
+[project]
+name = "hw8-high-risk"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipython>=9.0.2",
+    "llm>=0.23",
+    "sqlite-utils>=3.38",
+]
