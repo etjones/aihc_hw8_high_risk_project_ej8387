@@ -1,7 +1,25 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import AccountHolder
+from .models import AccountHolder, CircleMember, MedicationRegime, Prescription
+
+class CircleMemberForm(forms.ModelForm):
+    class Meta:
+        model = CircleMember
+        fields = ["name", "email", "sms_number"]
+
+class MedicationRegimeForm(forms.ModelForm):
+    class Meta:
+        model = MedicationRegime
+        fields = ["natural_language_description"]
+
+class PrescriptionForm(forms.ModelForm):
+    start_date = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    prescriber = forms.CharField(required=False)
+    time_of_day = forms.CharField(required=False, label="Time of Day", help_text="Optional (e.g., '08:00' or 'morning')")
+    class Meta:
+        model = Prescription
+        fields = ["medication", "dosage", "frequency", "start_date", "prescriber", "time_of_day"]
 
 class AccountHolderRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

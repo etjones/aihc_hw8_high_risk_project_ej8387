@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Edit Circle Member{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+  <h2 class="text-2xl font-bold mb-4">Edit Circle Member</h2>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+    <a href="{% url 'reminders:dashboard' %}" class="ml-4 text-gray-600 underline">Cancel</a>
+  </form>
+</div>
+{% endblock %}

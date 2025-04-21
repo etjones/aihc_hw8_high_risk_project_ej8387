@@ -1,0 +1,11 @@
+[
+  {
+    "name": "llm-gemini",
+    "hooks": [
+      "register_commands",
+      "register_embedding_models",
+      "register_models"
+    ],
+    "version": "0.18.1"
+  }
+]

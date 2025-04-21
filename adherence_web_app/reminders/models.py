@@ -20,6 +20,7 @@ class CircleMember(models.Model):
     email: models.EmailField = models.EmailField(blank=True)
     sms_number: models.CharField = models.CharField(max_length=32, blank=True)
     account_holder: models.ForeignKey = models.ForeignKey(AccountHolder, on_delete=models.CASCADE, related_name="circle_members")
+    prescriptions_description: models.TextField = models.TextField(blank=True, default="")
 
     def __str__(self) -> str:
         return self.name
@@ -27,6 +28,7 @@ class CircleMember(models.Model):
 
 class MedicationRegime(models.Model):
     circle_member: models.ForeignKey = models.ForeignKey(CircleMember, on_delete=models.CASCADE, related_name="medication_regimes")
+    natural_language_description: models.TextField = models.TextField(blank=True, default="")
     # prescriptions: related_name from Prescription
 
     def __str__(self) -> str:
@@ -37,9 +39,10 @@ class Prescription(models.Model):
     medication: models.CharField = models.CharField(max_length=255)
     dosage: models.CharField = models.CharField(max_length=128)
     frequency: models.CharField = models.CharField(max_length=128)
-    start_date: models.DateField = models.DateField()
-    prescriber: models.CharField = models.CharField(max_length=255)
-    medication_regime: models.ForeignKey = models.ForeignKey(MedicationRegime, on_delete=models.CASCADE, related_name="prescriptions")
+    start_date: models.DateField = models.DateField(blank=True, null=True)
+    prescriber: models.CharField = models.CharField(max_length=255, blank=True)
+    time_of_day: models.CharField = models.CharField(max_length=32, blank=True, help_text="Optional time of day for taking medication, e.g., '08:00' or 'morning'.")
+    circle_member: models.ForeignKey = models.ForeignKey(CircleMember, on_delete=models.CASCADE, related_name="prescriptions")
 
     def __str__(self) -> str:
         return f"{self.medication} ({self.dosage})"

@@ -11,4 +11,6 @@ dependencies = [
     "ipython>=9.0.2",
     "python-dotenv>=1.1.0",
     "cookiecutter>=2.6.0",
+    "llm>=0.24.2",
+    "returns>=0.25.0",
 ]

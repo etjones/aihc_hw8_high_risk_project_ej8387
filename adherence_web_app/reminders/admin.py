@@ -23,8 +23,8 @@ class MedicationRegimeAdmin(admin.ModelAdmin):
 
 @admin.register(Prescription)
 class PrescriptionAdmin(admin.ModelAdmin):
-    list_display = ("medication", "dosage", "frequency", "start_date", "prescriber", "medication_regime")
-    list_filter = ("medication_regime", "prescriber")
+    list_display = ("medication", "dosage", "frequency", "start_date", "prescriber", "circle_member")
+    list_filter = ("circle_member", "prescriber")
     search_fields = ("medication", "prescriber")
 
 
