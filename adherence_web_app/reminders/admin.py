@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AccountHolder, ServiceUser, MedicationRegime, Prescription, ServiceSession
+from .models import AccountHolder, CircleMember, MedicationRegime, Prescription, ServiceSession
 
 
 @admin.register(AccountHolder)
@@ -8,8 +8,8 @@ class AccountHolderAdmin(admin.ModelAdmin):
     search_fields = ("name", "email", "sms_number")
 
 
-@admin.register(ServiceUser)
-class ServiceUserAdmin(admin.ModelAdmin):
+@admin.register(CircleMember)
+class CircleMemberAdmin(admin.ModelAdmin):
     list_display = ("name", "email", "sms_number", "account_holder")
     search_fields = ("name", "email", "sms_number")
     list_filter = ("account_holder",)
@@ -17,8 +17,8 @@ class ServiceUserAdmin(admin.ModelAdmin):
 
 @admin.register(MedicationRegime)
 class MedicationRegimeAdmin(admin.ModelAdmin):
-    list_display = ("id", "service_user")
-    list_filter = ("service_user",)
+    list_display = ("id", "circle_member")
+    list_filter = ("circle_member",)
 
 
 @admin.register(Prescription)
@@ -30,8 +30,8 @@ class PrescriptionAdmin(admin.ModelAdmin):
 
 @admin.register(ServiceSession)
 class ServiceSessionAdmin(admin.ModelAdmin):
-    list_display = ("service_user", "medium", "start_time", "end_time")
-    list_filter = ("medium", "service_user")
+    list_display = ("circle_member", "medium", "start_time", "end_time")
+    list_filter = ("medium", "circle_member")
     search_fields = ("transcript", "outcome_notes")
 
 # Register your models here.

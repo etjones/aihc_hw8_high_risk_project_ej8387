@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 
@@ -21,13 +22,14 @@ from reminders import views as reminders_views
 
 urlpatterns = [
     # Home page
-    path('', reminders_views.home, name='home'),
+    path("", reminders_views.home, name="home"),
     # Admin site
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # Reminders app (custom registration)
-    path('reminders/', include('reminders.urls', namespace='reminders')),
+    path("reminders/", include("reminders.urls", namespace="reminders")),
     # Django built-in auth views (login, logout, password reset, etc.)
-    path('accounts/', include('django.contrib.auth.urls')),
+    path("accounts/", include("django.contrib.auth.urls")),
     # Profile page
-    path('accounts/profile/', reminders_views.profile, name='profile'),
+    path("accounts/profile/", reminders_views.profile, name="profile"),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

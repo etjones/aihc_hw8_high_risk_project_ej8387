@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .models import ServiceUser, MedicationRegime, Prescription, ServiceSession
+    from .models import CircleMember, MedicationRegime, Prescription, ServiceSession
 
 class AccountHolder(models.Model):
     name: models.CharField = models.CharField(max_length=255)
@@ -15,22 +15,22 @@ class AccountHolder(models.Model):
         return self.name
 
 
-class ServiceUser(models.Model):
+class CircleMember(models.Model):
     name: models.CharField = models.CharField(max_length=255)
     email: models.EmailField = models.EmailField(blank=True)
     sms_number: models.CharField = models.CharField(max_length=32, blank=True)
-    account_holder: models.ForeignKey = models.ForeignKey(AccountHolder, on_delete=models.CASCADE, related_name="service_users")
+    account_holder: models.ForeignKey = models.ForeignKey(AccountHolder, on_delete=models.CASCADE, related_name="circle_members")
 
     def __str__(self) -> str:
         return self.name
 
 
 class MedicationRegime(models.Model):
-    service_user: models.ForeignKey = models.ForeignKey(ServiceUser, on_delete=models.CASCADE, related_name="medication_regimes")
+    circle_member: models.ForeignKey = models.ForeignKey(CircleMember, on_delete=models.CASCADE, related_name="medication_regimes")
     # prescriptions: related_name from Prescription
 
     def __str__(self) -> str:
-        return f"MedicationRegime for {self.service_user.name} (ID: {self.id})"
+        return f"MedicationRegime for {self.circle_member.name} (ID: {self.id})"
 
 
 class Prescription(models.Model):
@@ -55,7 +55,7 @@ class ServiceSession(models.Model):
         (MEDIUM_EMAIL, "Email"),
     ]
 
-    service_user: models.ForeignKey = models.ForeignKey(ServiceUser, on_delete=models.CASCADE, related_name="sessions")
+    circle_member: models.ForeignKey = models.ForeignKey(CircleMember, on_delete=models.CASCADE, related_name="sessions")
     medium: models.CharField = models.CharField(max_length=16, choices=MEDIUM_CHOICES)
     start_time: models.DateTimeField = models.DateTimeField()
     end_time: models.DateTimeField = models.DateTimeField(null=True, blank=True)
@@ -64,4 +64,4 @@ class ServiceSession(models.Model):
     outcome_notes: models.TextField = models.TextField(blank=True)
 
     def __str__(self) -> str:
-        return f"Session for {self.service_user.name} on {self.start_time:%Y-%m-%d %H:%M} ({self.medium})"
+        return f"Session for {self.circle_member.name} on {self.start_time:%Y-%m-%d %H:%M} ({self.medium})"
