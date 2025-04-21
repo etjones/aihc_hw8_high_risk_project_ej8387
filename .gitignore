@@ -3,3 +3,7 @@
 **/build/
 **/ACM Conference Proceedings Primary Article Template/*
 **/*.sqlite3
+
+# When moving files around, I use a moved_aside/ dir to stash things I 
+# don't want to keep but am not ready to get rid of. ignore them
+**/moved_aside/
