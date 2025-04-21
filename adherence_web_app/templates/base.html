@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Adherence Web App{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-blue-700 text-white px-4 py-3 mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="font-bold text-xl">Adherence Web App</a>
+            <div>
+                {% if user.is_authenticated %}
+                    <span class="mr-4">Hello, {{ user.username }}!</span>
+                    <a href="/accounts/profile/" class="underline mr-4" title="Profile">
+                        <svg class="inline w-5 h-5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21a8.963 8.963 0 01-6.879-3.196z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Profile
+                    </a>
+                    <form action="/accounts/logout/" method="post" style="display:inline;">
+  {% csrf_token %}
+  <button type="submit" class="underline bg-transparent border-none p-0 m-0 text-white hover:underline" style="cursor:pointer;">Logout</button>
+</form>
+                {% else %}
+                    <a href="/accounts/login/" class="underline mr-4">Login</a>
+                    <a href="/reminders/register/" class="underline">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto">
+        {% if messages %}
+            <ul class="mb-4">
+                {% for message in messages %}
+                    <li class="p-2 mb-2 rounded {{ message.tags }} bg-green-100 text-green-800">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

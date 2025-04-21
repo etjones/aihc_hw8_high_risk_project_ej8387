@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+  <h2 class="text-2xl font-bold mb-4">Your Profile</h2>
+  <ul class="mb-4">
+    <li><strong>Username:</strong> {{ user.username }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    {% if user.accountholder %}
+      <li><strong>Name:</strong> {{ user.accountholder.name }}</li>
+      <li><strong>SMS Number:</strong> {{ user.accountholder.sms_number }}</li>
+    {% endif %}
+  </ul>
+  <a href="/accounts/password_change/" class="text-blue-600 underline">Change password</a>
+</div>
+{% endblock %}
