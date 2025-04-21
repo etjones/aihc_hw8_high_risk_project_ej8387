@@ -1,3 +1,5 @@
 **/examples/
 **/__pycache__/
 **/build/
+**/ACM Conference Proceedings Primary Article Template/*
+**/*.sqlite3
