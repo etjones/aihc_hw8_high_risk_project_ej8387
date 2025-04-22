@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -15,6 +16,9 @@ class AccountHolder(models.Model):
         return self.name
 
 
+import datetime
+from typing import Dict, Tuple
+
 class CircleMember(models.Model):
     name: models.CharField = models.CharField(max_length=255)
     email: models.EmailField = models.EmailField(blank=True)
@@ -24,6 +28,40 @@ class CircleMember(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def calculate_medication_times(self, day: datetime.date) -> dict[datetime.datetime, 'Prescription']:
+        """
+        Return a dict mapping datetime (when medication is due) to the Prescription for this day.
+        Only includes prescriptions that are active on the given day.
+        """
+        times: dict[datetime.datetime, 'Prescription'] = {}
+        for prescription in self.prescriptions.all():
+            # Only include if prescription is active for this day
+            if prescription.start_date and prescription.start_date > day:
+                continue
+            # Optionally handle end_date if you add it
+            # Parse time_of_day if present
+            if prescription.time_of_day:
+                try:
+                    # Try HH:MM format
+                    hour, minute = map(int, prescription.time_of_day.split(":"))
+                    dt = datetime.datetime.combine(day, datetime.time(hour, minute))
+                except Exception:
+                    # Fallback: treat as 'morning', 'evening', etc. (could be mapped)
+                    dt = datetime.datetime.combine(day, datetime.time(8, 0))  # default 8am
+                times[dt] = prescription
+        return times
+
+    def calculate_next_contact_time(self) -> tuple[datetime.datetime | None, dict[datetime.datetime, 'Prescription']]:
+        """
+        Return the next contact time (datetime) and the dict of due medications for that time.
+        """
+        today = datetime.date.today()
+        times = self.calculate_medication_times(today)
+        if not times:
+            return None, {}
+        next_time = min(times.keys())
+        return next_time, {next_time: times[next_time]}
 
 
 class MedicationRegime(models.Model):

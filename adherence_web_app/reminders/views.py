@@ -7,7 +7,7 @@ from .models import CircleMember, AccountHolder, Prescription
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth import get_user
 
-from returns.result import Result, Success, Failure
+from returns.result import Success, Failure
 
 
 def register(request: HttpRequest) -> HttpResponse:

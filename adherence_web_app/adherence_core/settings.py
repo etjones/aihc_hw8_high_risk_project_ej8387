@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_browser_reload",
+    "django_celery_beat",
 ]
 
 TAILWIND_APP_NAME = "theme"
@@ -118,6 +119,16 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+# Celery configuration
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+CELERY_BEAT_SCHEDULE = {
+    "send-daily-medication-reminders": {
+        "task": "reminders.tasks.send_daily_medication_reminders",
+        "schedule": 86400.0,  # every 24 hours (midnight)
+    },
+}
 
 
 # Static files (CSS, JavaScript, Images)
