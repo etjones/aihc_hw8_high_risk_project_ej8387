@@ -76,6 +76,8 @@ AI tools let us automate the kinds of conversations that have the biggest impact
 
 # 1. Hearance Web App
 
+![fit right](assets/hearance_web_app_dashboard.png)
+
 - GPT 4.1 helped assemble a Django-based application to set up medication schedules
 - Family members, caregivers, or patients themselves can sign up to get notifications for their medications
 - After conversations, a digest and recording is made available on the web app for each conversation
