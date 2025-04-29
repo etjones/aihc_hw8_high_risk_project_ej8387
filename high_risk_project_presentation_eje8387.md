@@ -8,8 +8,11 @@ code-language: Python
 **Assignment source:**
 [`https://github.com/etjones/aihc_hw8_high_risk_project_ej8387`](https://github.com/etjones/aihc_hw8_high_risk_project_ej8387)
 
-**Presentation PDF:**
+**Paper PDF:**
 [`https://github.com/etjones/aihc_hw8_high_risk_project_ej8387/blob/main/assets/evan_jones_high_risk_project_ej8387.pdf`](https://github.com/etjones/aihc_hw8_high_risk_project_ej8387/blob/main/assets/evan_jones_high_risk_project_ej8387.pdf)
+
+**Presentation PDF:**
+[`https://github.com/etjones/aihc_hw8_high_risk_project_ej8387/blob/main/assets/high_risk_project_presentation_eje8387.pdf`]()
 
 **Presentation Video:** 
 [``]()
@@ -36,7 +39,7 @@ Doctors call this problem *Adherence*, and it effects us all.
 
 ![fill ](assets/effective-health-communication-older-adults-inline_0.jpg)
 
-[Lots]() of [research]() exists to try to [improve]() medication adherence. 
+[Lots](https://pubmed.ncbi.nlm.nih.gov/16418141/) of [research](https://pmc.ncbi.nlm.nih.gov/articles/PMC6511120/) exists to try to [improve](https://pmc.ncbi.nlm.nih.gov/articles/PMC6613929) medication adherence. 
 
 Nothing works as well as conversations with patients' loved ones.
 

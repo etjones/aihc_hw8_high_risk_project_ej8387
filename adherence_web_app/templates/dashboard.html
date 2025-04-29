@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-<div class="flex max-w-4xl mx-auto mt-8">
+<div class="dashboard-bg flex max-w-4xl mx-auto mt-8">
   <!-- Sidebar: Circle Members -->
-  <div class="w-1/3 p-4 bg-gray-50 rounded-l shadow">
-    <h3 class="text-xl font-bold mb-4">Your Circle Members</h3>
+  <div class="w-1/5 glass-card p-4">
+    <h3 class="text-xl glass-heading mb-4">Your Circle Members</h3>
     {% if circle_members and circle_members|length > 0 %}
       <ul>
         {% for member in circle_members %}
           <li class="mb-2">
-            <a href="?circle_member_id={{ member.id }}" class="block px-3 py-2 rounded {% if selected_cm and member.id == selected_cm.id %}bg-blue-200 font-bold{% endif %}">
+            <a href="?circle_member_id={{ member.id }}" class="block px-3 py-2 rounded-xl transition-all {% if selected_cm and member.id == selected_cm.id %}glass-overlay font-bold ring-2 ring-cyan-300{% endif %}">
               {{ member.name }}
             </a>
           </li>
@@ -17,32 +17,32 @@
       </ul>
     {% else %}
       <div class="text-gray-500 mb-4">No Circle Members found.</div>
-      <div class="bg-white p-4 rounded shadow">
+      <div class="glass-card p-4">
         <h4 class="font-semibold mb-2">Add a Circle Member</h4>
         <form method="post">
           {% csrf_token %}
           {{ form.as_p }}
-          <button type="submit" name="add_circle_member" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add</button>
+          <button type="submit" name="add_circle_member" class="glass-btn">Add</button>
         </form>
       </div>
     {% endif %}
   </div>
   <!-- Main: Selected Member Details -->
-  <div class="w-2/3 p-6 bg-white rounded-r shadow">
+  <div class="w-4/5 glass-card p-6">
     {% if selected_cm %}
-      <h2 class="text-2xl font-bold mb-4">Circle Member: {{ selected_cm.name }}</h2>
+      <h2 class="text-2xl glass-heading mb-4">Circle Member: {{ selected_cm.name }}</h2>
   <div class="mb-6">
-    <h3 class="font-semibold text-lg mb-2">Prescriptions Description</h3>
+    <h3 class="font-semibold text-lg mb-2 glass-heading">Prescriptions Description</h3>
     <form method="post" class="mb-2">
       {% csrf_token %}
-      <textarea name="prescriptions_description" rows="4" class="w-full p-2 border border-gray-300 rounded" placeholder="Describe prescriptions here...">{{ prescriptions_description }}</textarea>
-      <button type="submit" name="update_prescriptions_description" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+      <textarea name="prescriptions_description" rows="4" class="w-full p-2 border border-gray-300" placeholder="Describe prescriptions here...">{{ prescriptions_description }}</textarea>
+      <button type="submit" name="update_prescriptions_description" class="mt-2 glass-btn">Save</button>
       <input type="hidden" name="circle_member_id" value="{{ selected_cm.id }}">
     </form>
   </div>
   <div class="mb-6">
-    <h3 class="font-semibold text-lg mb-2">Prescriptions</h3>
-    <table class="min-w-full bg-white border">
+    <h3 class="font-semibold text-lg mb-2 glass-heading">Prescriptions</h3>
+    <table class="min-w-full border">
       <thead>
         <tr>
           <th class="border px-4 py-2">Medication</th>
@@ -50,7 +50,6 @@
           <th class="border px-4 py-2">Frequency</th>
           <th class="border px-4 py-2">Time of Day</th>
           <th class="border px-4 py-2">Start Date</th>
-          <th class="border px-4 py-2">Prescriber</th>
           <th class="border px-4 py-2">Actions</th>
         </tr>
       </thead>
@@ -62,7 +61,6 @@
           <td class="border px-4 py-2">{{ prescription.frequency }}</td>
           <td class="border px-4 py-2">{{ prescription.time_of_day }}</td>
           <td class="border px-4 py-2">{{ prescription.start_date }}</td>
-          <td class="border px-4 py-2">{{ prescription.prescriber }}</td>
           <td class="border px-4 py-2">
             <form method="post" style="display:inline;">
               {% csrf_token %}
@@ -85,17 +83,17 @@
     </table>
     <div class="mt-4">
       {% if selected_cm and selected_cm.id %}
-        <div class="bg-gray-50 p-4 rounded shadow">
+        <div class="glass-card p-4">
           <h4 class="font-semibold mb-2">{% if editing_prescription %}Edit Prescription{% else %}Add Prescription{% endif %}</h4>
           <form method="post">
             {% csrf_token %}
             {{ prescription_form.as_p }}
             {% if editing_prescription %}
               <input type="hidden" name="edit_prescription_id" value="{{ editing_prescription.id }}">
-              <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Update</button>
+              <button type="submit" class="glass-btn">Update</button>
               <a href="?circle_member_id={{ selected_cm.id }}" class="ml-2 text-gray-600 underline">Cancel</a>
             {% else %}
-              <button type="submit" name="add_prescription" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add</button>
+              <button type="submit" name="add_prescription" class="glass-btn">Add</button>
             {% endif %}
           </form>
         </div>

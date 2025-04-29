@@ -10,3 +10,5 @@
 
 # Ignore Celery metadata
 **/celerybeat-*
+**/*.rdb
+

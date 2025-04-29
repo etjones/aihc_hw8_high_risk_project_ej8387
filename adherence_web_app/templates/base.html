@@ -5,15 +5,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}Adherence Web App{% endblock %}</title>
+        <title>{% block title %}Hearence Web App{% endblock %}</title>
         <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
         <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.3/dist/tailwind.min.css" rel="stylesheet"> -->
         {% tailwind_css %}
     </head>
-    <body class="bg-gray-100 min-h-screen">
-        <nav class="bg-blue-700 text-white px-4 py-3 mb-8">
+    <body class="min-h-screen" style="background: linear-gradient(135deg, #232526 0%, #414345 100%);">
+        <nav class="glass-card text-white px-4 py-3 mb-8" style="backdrop-filter: blur(10px) saturate(1.2); background: rgba(40, 60, 80, 0.48); border: 1.5px solid rgba(0,255,255,0.18); box-shadow: 0 2px 16px #0ff2;">
             <div class="container mx-auto flex justify-between items-center">
-                <a href="/" class="font-bold text-xl">Adherence Web App</a>
+                <a href="/" class="font-bold text-xl">Hearence Web App</a>
                 <div>
                     {% if user.is_authenticated %}
                     <span class="mr-4">Hello, {{ user.username }}!</span>
